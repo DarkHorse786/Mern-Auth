@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import VerifyEmail from './pages/verifyEmail'
 import ResetPassword from './pages/ResetPassword'
+import { ToastContainer} from 'react-toastify';
+
 
 function App() {
 

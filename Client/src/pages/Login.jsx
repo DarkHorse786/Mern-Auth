@@ -2,24 +2,51 @@ import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { Appcontent } from "../context/AppContext";
-
+import axios from "axios";
+import { toast } from "react-toastify";
 const Login = () => {
   const navigate = useNavigate();
 
-  const {backendUrl,setlsLoggedIn}=useContext(Appcontent);
-
+  const { backendUrl, setlsLoggedIn } = useContext(Appcontent);
   const [state, setState] = useState("Sign Up");
-  const [name,setName]=useState('');
-  const [email,setEmail]=useState('');
-  const [password,setPassword]=useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const onSubmitHandler= async (e)=>{
+  const onSubmitHandler = async (e) => {
     try {
-      e.preventDefault()
+      e.preventDefault();
+      axios.defaults.withCredentials = true;
+      if (state === "Sign Up") {
+        const { data } = await axios.post(backendUrl + "/api/auth/register", {
+          name,
+          email,
+          password,
+        });
+        if (data.status) {
+          setlsLoggedIn(true);
+          navigate("/");
+          toast.error(data.message);
+        } else {
+          toast.error(data.message);
+        }
+      } else {
+        const { data } = await axios.post(backendUrl + "/api/auth/login", {
+          email,
+          password,
+        });
+        if (data.status) {
+          setlsLoggedIn(true);
+          navigate("/");
+          toast.error(data.message);
+        } else {
+          toast.error(data.message);
+        }
+      }
     } catch (error) {
-      
+      toast.error(error.message);
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen px-6 sm:px-0 bg-[radial-gradient(circle_at_center,_#c084fc,_#bfdbfe)]">
@@ -27,7 +54,7 @@ const Login = () => {
         src={assets.logo}
         className="absolute left-5 sm:left-20 top-5 w-28 sm:w-32 cursor-pointer"
         alt=""
-        onClick={()=>navigate('/')}
+        onClick={() => navigate("/")}
       />
 
       <div className="bg-slate-900 p-10 rounded-lg shadow-lg w-full sm:w-96 text-indigo-300 text-sm">
@@ -49,7 +76,7 @@ const Login = () => {
                 type="text"
                 placeholder="Full Name"
                 required
-                onChange={e=> setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
                 value={name}
               />
             </div>
@@ -62,7 +89,7 @@ const Login = () => {
               type="email"
               placeholder="Email"
               required
-              onChange={e=> setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               value={email}
             />
           </div>
@@ -73,13 +100,15 @@ const Login = () => {
               type="password"
               placeholder="Password"
               required
-              onChange={e=> setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
           </div>
-          <p className="mb-4 text-indigo-500 cursor-pointer"
-            onClick={()=>navigate('/reset-password')}>  
-            Forgot Password? 
+          <p
+            className="mb-4 text-indigo-500 cursor-pointer"
+            onClick={() => navigate("/reset-password")}
+          >
+            Forgot Password?
           </p>
 
           <button className="w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white font-medium">
@@ -90,14 +119,20 @@ const Login = () => {
         {state === "Sign Up" ? (
           <p className="text-gray-400 text-center text-xs mt-4">
             Already have an account?{" "}
-            <span className="text-blue-400 cursor-pointer underline" onClick={()=>setState('Log In')}>
+            <span
+              className="text-blue-400 cursor-pointer underline"
+              onClick={() => setState("Log In")}
+            >
               Login{" "}
             </span>
           </p>
         ) : (
           <p className="text-gray-400 text-center text-xs mt-4">
             Don't have an account?{" "}
-            <span className="text-blue-400 cursor-pointer underline" onClick={()=>setState('Sign Up')}>
+            <span
+              className="text-blue-400 cursor-pointer underline"
+              onClick={() => setState("Sign Up")}
+            >
               Sign Up{" "}
             </span>
           </p>
