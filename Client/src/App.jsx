@@ -12,6 +12,7 @@ function App() {
 
   return (
     <div>
+      <ToastContainer/>
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/login' element={<Login/>}/>

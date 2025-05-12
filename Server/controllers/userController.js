@@ -7,7 +7,7 @@ export const getUserData= async (req,res)=>{
         const user = await userModel.findOne({_id:userId});
         
         if(!user)
-            res.send({ status: false, message: "User not found!" });
+            return res.send({ status: false, message: "User not found!" });
 
         res.send({ status: true, 
             userData: {

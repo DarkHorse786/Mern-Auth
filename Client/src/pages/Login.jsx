@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 const Login = () => {
   const navigate = useNavigate();
 
-  const { backendUrl, setlsLoggedIn } = useContext(Appcontent);
+  const { backendUrl, setIsLoggedin ,getUserData} = useContext(Appcontent);
   const [state, setState] = useState("Sign Up");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,9 +24,10 @@ const Login = () => {
           password,
         });
         if (data.status) {
-          setlsLoggedIn(true);
+          setIsLoggedin(true);
+          getUserData();
           navigate("/");
-          toast.error(data.message);
+          toast.success(data.message);
         } else {
           toast.error(data.message);
         }
@@ -36,9 +37,10 @@ const Login = () => {
           password,
         });
         if (data.status) {
-          setlsLoggedIn(true);
+          setIsLoggedin(true);
           navigate("/");
-          toast.error(data.message);
+          getUserData();
+          toast.success(data.message);
         } else {
           toast.error(data.message);
         }
