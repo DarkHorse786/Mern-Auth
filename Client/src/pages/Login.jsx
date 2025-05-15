@@ -26,7 +26,11 @@ const Login = () => {
         if (data.status) {
           setIsLoggedin(true);
           getUserData();
-          navigate("/");
+          setState("Log In");
+          navigate("/login");
+          setEmail("");
+          setPassword("");
+          setName("");
           toast.success(data.message);
         } else {
           toast.error(data.message);
