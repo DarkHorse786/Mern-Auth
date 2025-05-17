@@ -19,6 +19,7 @@ app.use(cors({ credentials: true, origin: true }));
 app.get('/', (req, res) => res.send("API Working"));
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
-app.listen(process.env.PORT, () => {
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
