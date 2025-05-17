@@ -3,7 +3,7 @@ import './App.css'
 import { Routes,Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
-import VerifyEmail from './pages/verifyEmail'
+import VerifyEmail from './pages/VerifyEmail'
 import ResetPassword from './pages/ResetPassword'
 import { ToastContainer} from 'react-toastify';
 
