@@ -11,10 +11,15 @@ dotenv.config();
 const app = express();
 dbConnection();
 
+app.use(cors({
+  origin: 'https://mern-auth-786.onrender.com',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 app.use(express.json());
-app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ credentials: true, origin: true }));
+app.use(cookieParser());
+
 
 app.get('/', (req, res) => res.send("API Working"));
 app.use('/api/auth', authRouter);
