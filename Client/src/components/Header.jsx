@@ -11,7 +11,7 @@ const Header = () => {
       <img src={assets.header_img} className='w-36 h-36 rounded-full mh-6' alt="" />
       <h1 className='flex items-center gap-2 text-xl sm:text-3xl font-medium mb-2'>Hey {userData ? userData.name : "Developer"} !</h1>
       <h2 className='text-3xl sm:text-4xl font-semibold mb-4'>Welcome to our app</h2>
-      <p className='mb-8 maxw-md'>Let's sta rt with a product tour and we will have you up and running in no time!</p>
+      <p className='mb-8 maxw-md'>Let's start with a product tour and we will have you up and running in no time!</p>
       <button className='border border-gray-500 rounded-full px-6 py-2 text-gray-800 hover:bg-gray-100 transition-all' onClick={() => navigate("/login")}>Get Started</button>
     </div> 
   )
